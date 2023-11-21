@@ -18,4 +18,5 @@ CourseRoutes(app);
 ModuleRoutes(app);
 AssignmentRoutes(app);
 
+console.log("started the server...");
 app.listen(process.env.PORT || 4000); // Listen to http://localhost:4000
