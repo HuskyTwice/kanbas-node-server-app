@@ -1,12 +1,13 @@
 {
   "type": "module",
   "name": "kanbas-node-server-app",
-  "version": "18.8.0",
+  "version": "1.0.0",
   "description": "Node.js HTTP Web server for the Kanbas application",
   "main": "index.js",
   "scripts": {
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "server": "nodemon app.js"
   },
   "keywords": [
     "Node",
