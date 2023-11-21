@@ -1,8 +1,5 @@
 {
   "type": "module",
-  "compilerOptions": {
-    "module": "CommonJS"
-  },
   "name": "kanbas-node-server-app",
   "version": "1.0.0",
   "description": "Node.js HTTP Web server for the Kanbas application",
