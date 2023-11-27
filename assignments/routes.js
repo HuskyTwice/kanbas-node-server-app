@@ -4,10 +4,10 @@ function AssignmentRoutes(app) {
     app.put("/api/assignments/:aid", (req, res) => {
         const { aid } = req.params;
         const assignmentIndex = db.assignments.findIndex((a) => a._id === aid);
-        if (assignmentIndex === -1) {
-            res.status(404).send("Assignment not found");
-            return;
-        }
+        // if (assignmentIndex === -1) {
+        //     res.status(404).send("Assignment not found");
+        //     return;
+        // }
         db.assignments[assignmentIndex] = {
             ...db.assignments[assignmentIndex], ...req.body
         };
