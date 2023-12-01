@@ -16,11 +16,7 @@ console.log(CONNECTION_STRING)
 mongoose.connect(CONNECTION_STRING);
 const app = express();
 app.use(
-    cors({
-        credentials: true, // support cookies
-        // origin: "http://localhost:3000"
-        origin: process.env.FRONTEND_URL
-    })
+    cors()
 );
 const sessionOptions = {
     secret: "any string",
