@@ -20,13 +20,13 @@ app.use(
         credentials: true, // support cookies
         // origin: "http://localhost:3000"
         origin: process.env.FRONTEND_URL,
-        methods: 'GET,PUT,POST,DELETE'
+        methods: 'GET,PUT,POST,DELETE',
     })
 );
 const sessionOptions = {
     secret: "any string",
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
 };
 app.use(session(sessionOptions));
 app.use(express.json()); // must be AFTER session configuration
