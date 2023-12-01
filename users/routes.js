@@ -46,7 +46,13 @@ function UserRoutes(app) {
         res.json(200);
     };
     const account = async (req, res) => {
-        res.json(req.session['currentUser']);
+        const currentUser = req.session['currentUser'];
+        // res.json(req.session['currentUser']);
+        if (!currentUser) {
+            res.sendStatus(404)
+            return
+        }
+        res.json(currentUser);
     };
 
     app.post("/api/users", createUser);
