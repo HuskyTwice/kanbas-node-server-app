@@ -13,6 +13,13 @@ import session from "express-session";
 
 const CONNECTION_STRING = process.env.DB_CONNECTION_STRING || "mongodb://127.0.0.1:27017/kanbas"
 console.log(CONNECTION_STRING)
+
+const MongoDBStor = require('connect-mongodb-session')(session);
+const store = new MongoDBStore({
+    uri: "mongodb://127.0.0.1:27017/kanbas",
+    collection: "users"
+});
+
 mongoose.connect(CONNECTION_STRING);
 const app = express();
 app.use(
@@ -27,6 +34,7 @@ const sessionOptions = {
     secret: "any string",
     resave: false,
     saveUninitialized: false,
+    store: store
 };
 app.use(session(sessionOptions));
 app.use(express.json()); // must be AFTER session configuration
