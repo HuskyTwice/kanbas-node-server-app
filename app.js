@@ -18,7 +18,7 @@ const app = express();
 app.use(
     cors({
         credentials: true, // support cookies
-        // origin: "http://localhost:3000"
+        // origin: "http://localhost:3000",
         origin: process.env.FRONTEND_URL,
         methods: 'GET,PUT,POST,DELETE',
     })
