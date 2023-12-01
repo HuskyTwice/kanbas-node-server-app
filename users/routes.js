@@ -51,14 +51,18 @@ function UserRoutes(app) {
         res.json(200);
     };
     const account = async (req, res) => {
-        const currentUser = req.session['currentUser'];
-        // res.json(req.session['currentUser']);
-        if (!currentUser) {
-            res.sendStatus(404)
-            return
+        try {
+            const currentUser = req.session['currentUser'];
+            if (!currentUser) {
+                res.sendStatus(404)
+                return
+            }
+            res.json(currentUser);
+        } catch (error) {
+            console.error('Error in account function:', error);
+            res.status(500).json({ error: 'Internal server error'});
         }
-        res.json(currentUser);
-    };
+    };  
 
     app.post("/api/users", createUser);
     app.get("/api/users", findAllUsers);
