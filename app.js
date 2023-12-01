@@ -10,11 +10,12 @@ import AssignmentRoutes from './assignments/routes.js';
 import mongoose from "mongoose";
 import UserRoutes from "./users/routes.js";
 import session from "express-session";
+import MongoDBStore from "connect-mongodb-session";
 
 const CONNECTION_STRING = process.env.DB_CONNECTION_STRING || "mongodb://127.0.0.1:27017/kanbas"
 console.log(CONNECTION_STRING)
 
-const MongoDBStor = require('connect-mongodb-session')(session);
+const MongoDBStore = MongoDBStore(session);
 const store = new MongoDBStore({
     uri: "mongodb://127.0.0.1:27017/kanbas",
     collection: "users"
