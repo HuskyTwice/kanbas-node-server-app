@@ -36,10 +36,15 @@ function UserRoutes(app) {
         res.json(currentUser);
     };
     const signin = async (req, res) => {
-        const { username, password } = req.body;
-        const currentUser = await dao.findUserByCredentials(username, password);
-        req.session['currentUser'] = currentUser;
-        res.json(currentUser);
+        try {
+            const { username, password } = req.body;
+            const currentUser = await dao.findUserByCredentials(username, password);
+            req.session['currentUser'] = currentUser;
+            res.json(currentUser);
+        } catch (error) {
+            console.error("Error during signin:", error);
+            res.status(500).json({error: 'Internal server error'});
+        }
     };
     const signout = async (req, res) => {
         req.session.destroy();
