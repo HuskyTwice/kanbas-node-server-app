@@ -18,7 +18,8 @@ const app = express();
 app.use(
     cors({
         credentials: true, // support cookies
-        origin: "http://localhost:3000" // restrict cross origin resource sharing to the react application
+        // origin: "http://localhost:3000"
+        origin: process.env.FRONTEND_URL
     })
 );
 const sessionOptions = {
