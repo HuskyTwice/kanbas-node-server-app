@@ -19,8 +19,8 @@ const app = express();
 app.use(
     cors({
         credentials: true, // support cookies
-        origin: "https://a6--funny-smakager-45e49c.netlify.app",
-        // origin: process.env.FRONTEND_URL,
+        // origin: "http://localhost:3000",
+        origin: process.env.FRONTEND_URL,
     })
 );
 const sessionOptions = {
