@@ -10,32 +10,30 @@ import AssignmentRoutes from './assignments/routes.js';
 import mongoose from "mongoose";
 import UserRoutes from "./users/routes.js";
 import session from "express-session";
-import MongoDBStoreModule from "connect-mongodb-session";
 
 const CONNECTION_STRING = process.env.DB_CONNECTION_STRING || "mongodb://127.0.0.1:27017/kanbas"
 console.log(CONNECTION_STRING)
-
-const MongoDBStore = MongoDBStoreModule(session);
-const store = new MongoDBStore({
-    uri: "mongodb://127.0.0.1:27017/kanbas",
-    collection: "users"
-});
 
 mongoose.connect(CONNECTION_STRING);
 const app = express();
 app.use(
     cors({
         credentials: true, // support cookies
-        // origin: "http://localhost:3000",
-        origin: process.env.FRONTEND_URL,
-        methods: 'GET,PUT,POST,DELETE',
+        origin: "https://a6--funny-smakager-45e49c.netlify.app",
+        // origin: process.env.FRONTEND_URL,
     })
 );
 const sessionOptions = {
     secret: "any string",
     resave: false,
     saveUninitialized: false,
-    store: store
+};
+if (process.env.NODE_ENV !== "development") {
+    sessionOptions.proxy = true;
+    sessionOptions.cookie = {
+        sameSite: "none",
+        secure: true
+    };
 };
 app.use(session(sessionOptions));
 app.use(express.json()); // must be AFTER session configuration

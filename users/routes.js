@@ -36,16 +36,14 @@ function UserRoutes(app) {
         res.json(currentUser);
     };
     const signin = async (req, res) => {
-        try {
-            const { username, password } = req.body;
-            res.json(username);
-            res.json(password);
-            const currentUser = await dao.findUserByCredentials(username, password);
-            req.session['currentUser'] = currentUser;
-            res.json(currentUser);
-        } catch (error) {
-            console.error("Error during signin:", error);
-            res.status(500).json({error: 'Internal server error'});
+        const { username, password } = req.body;
+        const user = await dao.findUserByCredentials(username, password);
+        if (user) {
+            const currentUser = user;
+            req.session["currentUser"] = currentUser;
+            res.json(user);
+        } else {
+            res.sendStatus(403);
         }
     };
     const signout = async (req, res) => {
@@ -53,17 +51,8 @@ function UserRoutes(app) {
         res.json(200);
     };
     const account = async (req, res) => {
-        try {
-            const currentUser = req.session['currentUser'];
-            if (!currentUser) {
-                res.sendStatus(404)
-                return
-            }
-            res.json(currentUser);
-        } catch (error) {
-            console.error('Error in account function:', error);
-            res.status(500).json({ error: 'Internal server error'});
-        }
+        const currentUser = req.session["currentUser"];
+        res.json(currentUser);
     };  
 
     app.post("/api/users", createUser);
